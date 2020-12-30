@@ -6,6 +6,16 @@ Prioritization of gene diseases candidates by disease-aware evaluation of hetero
 
 ## Requirements
 
+R (tested with version 3.5.0). 
+R packages: optparse, caret
+
+Python packages: numpy (tested with version 1.11.0), pandas (tested with version 0.19.0), scipy (tested with version 0.18.1), sklearn (tested with version 0.0).
+
+
+
+Python 2.7 or 3.6
+
+Python packages: numpy (tested with version 1.11.0), pandas (tested with version 0.19.0), scipy (tested with version 0.18.1), sklearn (tested with version 0.0).
 
 
 
