@@ -38,7 +38,7 @@ File listing known associated disease genes
 **-n --networks NETWORKS**
 Evidence network config file. Three tab-separated fields: network path, network name, network category
 
-[Default network config file](test/networks_knowledgeCategories.cfg)
+[Default network config file](networks_knowledgeCategories.cfg)
 
 DEFAULT NETWORK CONFIG FILE IS LOCATED AT TEST FOLDER
 
