@@ -46,7 +46,7 @@ Output directory
 **-p, --panelapp**       
 Disease-associated genes in PanelApp format
 
-Gene Panels from PanelApp can be download from [GitHub Pages](https://panelapp.genomicsengland.co.uk/panels/).
+Gene Panels from PanelApp can be download from https://panelapp.genomicsengland.co.uk/panels/.
 
 
 **-t, --timeprinted**     
