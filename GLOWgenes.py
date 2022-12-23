@@ -69,11 +69,11 @@ def geneSymbolToHGCN(panelgenes):
 	hgnc_list = []
 	hgnc_dicc = {}
 
-	with open("/home/proyectos/bioinfo/lorena/pSNOW/HGNC_GENES.txt", 'rt', encoding='utf-8') as hgnc:
+	with open("./dictionaries/HGNC_GENES.txt", 'rt', encoding='utf-8') as hgnc:
 		for line in hgnc:
 			hgnc_list.append(line.strip().split("\t")[1].upper())
 
-	with open("/home/proyectos/bioinfo/lorena/pSNOW/HGNC_unique_dicc.txt", 'rt', encoding='utf-8') as hgnc:
+	with open("./dictionaries/HGNC_unique_dicc.txt", 'rt', encoding='utf-8') as hgnc:
 		for line in hgnc:
 			hgnc_dicc[line.strip().split("\t")[1].upper()] = line.strip().split("\t")[0].upper()
 
