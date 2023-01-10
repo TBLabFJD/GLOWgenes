@@ -71,3 +71,6 @@ Maximum seed initialization value when considering gene expression levels. Range
   
 **-r RATIO, --ratio RATIO**
 Training ratio for random training/test splits
+
+## Running an example
+Within directory example you have full intructions to test GLOWgenes
