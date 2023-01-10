@@ -5,7 +5,6 @@
 # GLOWgenes
 # Discovery of new disease-gene associations 
 # Author: Lorena de la Fuente
-# Date: 09/09/2019
 
 ########################################################
 
