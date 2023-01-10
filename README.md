@@ -19,9 +19,9 @@ Download network files from: Minguez, Pablo (2022): GLOWgenesNets.zip. figshare.
 
 You could also generate your own networks or selected a subset from theose provided by GLOWgenes
 
-## Edit networks_knowledgeCategories.cfg file with your complete directory route to the network files
+## Editing networks config file
+Edit networks_knowledgeCategories.cfg file with your complete directory route to the network files
 e.g. substitute PATH by home/pablo/GLOWgenesNets in every line, as in: /PATH/coexpressionCOXPRESdbEXT_HGNCnets.txt
-
 
 ## Running GLOWgenes
 
