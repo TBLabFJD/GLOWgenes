@@ -1,0 +1,64 @@
+## README file to help in the execution of an example for GLOWgenes
+
+GLOWgenes has been develop to be run in a linux computer. RAM of >32GB is recommended if full set of networks provided are used.
+
+1. Check you have all required software and packages installed:
+- Python 2.7 or 3.6
+- Python packages:
+    - numpy (tested with version 1.11.0)
+    - pandas (tested with version 0.19.0)
+    - scipy (tested with version 0.18.1)
+    - sklearn (tested with version 0.0)
+    - networkx (tested with version 3.0)
+- R (tested with version 3.5.0).
+- R packages: optparse, caret
+
+2. Download network files from https://figshare.com/articles/dataset/GLOWgenesNets_zip/21408393/1
+
+3. Edit networks_knowledgeCategories.cfg file with your complete directory route to the network files
+e.g. substitute PATH by home/pablo/GLOWgenesNets in every line, as in: /PATH/coexpressionCOXPRESdbEXT_HGNCnets.txt
+
+You can use networks_knowledgeCategories.test.cfg with a subset of networks in order to reduce computational time for testing purposes.
+
+4. Make GLOWgenes.py executable: chmod 755 GLOWgenes.py
+
+5. Make sure your seeds file is:
+- Composed by human gene names
+- It is formatted as a single column plain text gene list or in a PanelApp format, check: https://panelapp.genomicsengland.co.uk/panels/
+
+This example directory contains two files with the same gene list with genes associated to Acute rhabdomyolysis disease (https://panelapp.genomicsengland.co.uk/panels/1141/)
+
+Acute_rhabdomyolysis.tsv - Grean and Ambar genes in PanelApp format: https://panelapp.genomicsengland.co.uk/panels/1141/download/234/
+Acute_rhabdomyolysis_onecolumn.tsv - Same genes but in a single column format
+
+Both can be run and they produce the output provided within this directory
+
+6. Use command line:
+./GLOWgenes.py -i /PATH/GLOWgenes/example/cute_rhabdomyolysis.tsv -n /PATH/networks_knowledgeCategories.cfg -o /PATH/GLOWgenes/example
+
+where:
+
+-i indicates the complete path to the seeds file
+-n indicates the complete path to the networks configutation file
+-o indicates the complete path to the directory where you want the output
+
+Other options are available in the documentation: https://github.com/TBLabFJD/GLOWgenes
+
+OUTPUT FILES/DIRECTORIES:
+GLOWgenes_prioritization_Random.txt
+	- Main output file with the genes ranked according to their GLOWgenes predicted association to the seeds list.
+	- This is a 3 columns file with: gene name \t integration score \t rank (1 is best associated)
+
+GLOWgenes_trainingGenes.txt
+	- List of seed genes detected by GLOWgenes
+
+networkEvaluation.txt
+	- Intermediary file with the evaluation of every network
+
+bestnetsEvaluation.txt
+	- Network selected for every Knowledge category
+
+
+singleNetworkModeling/
+	- directory with the ranked genes for every Knowledge category
+	- Every file is a 3 columns file with: gene name \t integration score \t rank (1 is best associated)

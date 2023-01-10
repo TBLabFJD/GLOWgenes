@@ -1,0 +1,14 @@
+network	knowledgecategory	trainingtype
+textminingSTRING	COCITATION	Random
+geneticRauscher	COESSENTIALITY	Random
+coexpressionSTRING	COEXPRESSION	Random
+ThulMAP	COLOCALIZATION	Random
+CORUM	COMPLEX	Random
+DGIdb	DRUGSHARING	Random
+biologicalProcessGO	FUNCTION	Random
+coocurrenceSTRING	GENOMIC	Random
+MGIphenotypes	MOUSEMODELS	Random
+ReactomeFI	PATHWAYS	Random
+HPO	PHENOTYPE	Random
+experimentalSTRING	PPI	Random
+DoRothEA	REGULATION	Random

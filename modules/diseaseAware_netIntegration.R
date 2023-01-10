@@ -25,13 +25,13 @@ calculateSpecScore <- function(detectedgenes){
   
   mymatrix_DIV[is.na(mymatrix_DIV)] <- 0
   
-  Hj = apply(mymatrix_DIV,1,function(x) -1*sum(x*log2(x), na.rm=TRUE)) # Diversity of the transcriptome of each tissue
+  Hj = apply(mymatrix_DIV,1,function(x) -1*sum(x*log2(x), na.rm=TRUE)) / log2(ncol(mymatrix_DIV)) # Diversity 
   
   pi = apply(mymatrix_DIV, 2, mean)
   
   Si = 1/nrow(mymatrix_DIV) * colSums(t(t(mymatrix_DIV)/pi)*log2(t(t(mymatrix_DIV)/pi)),na.rm=TRUE)
   
-  gj = rowSums(t(t(mymatrix_DIV)*Si)) / log2(length(detectedgenes))
+  gj = rowSums(t(t(mymatrix_DIV)*Si)) / log2(length(detectedgenes)) # Specificity
 
   return(list(Hj, gj))
   
@@ -44,13 +44,14 @@ kcIntegration <- function(metrics_best, dir){
   
   
   # Reading RWWR results
-  rwwr.list = sapply(unique(metrics_best$network), function(y) list.files(path=dir, pattern = paste("GLOWgenes_",y, sep = ""), full.names = T))
+  rwwr.list = sapply(unique(metrics_best$network), function(y) list.files(path=dir, pattern = paste("GLOWgenes_",y, "_", sep = ""), full.names = T))
   rwwr.results = NULL
   genes = NULL
   for (n in 1:length(rwwr.list)){
     
     net = names(rwwr.list)[n]
-    rwwr.results[[net]] = read.delim(file=rwwr.list[n], header = FALSE, row.names = 1)
+    print(net)
+    rwwr.results[[net]] = read.delim(file=rwwr.list[[n]], header = FALSE, row.names = 1)
     genes = unique(c(genes,rownames(rwwr.results[[net]] )))
     
   }
@@ -104,7 +105,7 @@ opt=parse_args(opt_parser) #list of the args
 # Loading data
 
 mydetgenes = read.delim2( file = paste(opt$dir,"detectedgenesEvaluation.txt",sep="/"), stringsAsFactors = F)
-metrics = read.delim2(file = paste(opt$dir,"networkEvaluation.txt",sep="/"), stringsAsFactors = F)
+metrics = read.delim2(file = paste(opt$dir,"networkEvaluation.txt", sep="/"), stringsAsFactors = F, check.names = F)
 
 
 
@@ -143,19 +144,19 @@ metrics.best.spec.bystrategy = lapply(names(best.bystrategy), function(x) {
     }
     )
     
-    gj_mean = rowMeans(sapply(spec, function(m) m[[2]]))
-    hj_mean = rowMeans(sapply(spec, function(m) m[[1]]))
+    gj_mean = round(rowMeans(sapply(spec, function(m) m[[2]])), digits = 3)
+    hj_mean = round(rowMeans(sapply(spec, function(m) m[[1]])), digits = 3)
     
     specificity.best = rbind(specificity.best, data.frame(knowledgecategory = names(gj_mean), diversity = hj_mean, specificity = gj_mean, Type=ntop, trainingtype=x))
     
   }
   
-  metrics.best.spec = merge(metrics.best, specificity.best, by=c("Type","knowledgecategory")) 
+  metrics.best.spec = merge(metrics.best, specificity.best, by=c("Type","knowledgecategory","trainingtype")) 
   
   
   # Load random-walk results & Disease-aware Integration 
   
-  integration.results = kcIntegration(metrics_best = metrics.best.spec, dir = opt$dir)
+  integration.results = kcIntegration(metrics_best = metrics.best.spec, dir = paste(opt$dir, "singleNetworkModeling", sep="/"))
   write.table(integration.results, file=paste(opt$dir,"/GLOWgenes_prioritization_", x, ".txt", sep = "") , row.names = FALSE, col.names = FALSE, quote = FALSE,sep = "\t")
   
   
@@ -171,6 +172,9 @@ metrics.best.spec.bystrategy = lapply(names(best.bystrategy), function(x) {
 # Write Best Network Performance
 
 metrics.best.spec =  do.call("rbind", metrics.best.spec.bystrategy)
+metrics.best.spec = cbind(metrics.best.spec[,c("disease","diseasegroup","#diseasegenes","network","knowledgecategory","percgenesinnetwork", "trainingtype", "auprg", "auc","Type","ntop")],
+metrics.best.spec[,c(12:19)])
+
 write.table(metrics.best.spec, file=paste(opt$dir,"networkEvaluation_best.txt", sep = "/"),  row.names = F, quote = FALSE,sep = "\t")
 
 
