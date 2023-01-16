@@ -3,7 +3,7 @@ Prioritization of gene diseases candidates by disease-aware evaluation of hetero
 Visit www.glowgenes.org for more information
 
 ## Citing
-Preprint available at: https://www.medrxiv.org/content/10.1101/2022.10.07.22280759v2
+de la Fuente L, Del Pozo-Valero M, Perea-Romero I, Blanco-Kelly F, Fernández-Caballero L, Cortón M, Ayuso C, Mínguez P. Prioritization of New Candidate Genes for Rare Genetic Diseases by a Disease-Aware Evaluation of Heterogeneous Molecular Networks. International Journal of Molecular Sciences. 2023; 24(2):1661. https://doi.org/10.3390/ijms24021661
 
 ## Requirements
 
