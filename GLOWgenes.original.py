@@ -5,7 +5,6 @@
 # GLOWgenes
 # Discovery of new disease-gene associations 
 # Author: Lorena de la Fuente
-# Date: 09/09/2019
 
 ########################################################
 
@@ -174,7 +173,7 @@ def computePerformance(panelgenes, seeds_list, candidates_list, nodes, adjacency
 
 		# recall/precision at x-top
 
-		tag_list = ["t", "n"] +  [str(x) for x in list(np.geomspace(1, 1024, num=11, dtype=int))]
+		tag_list = ["t", "n"] +   [str(x) for x in list(np.geomspace(1, 1024, num=11, dtype=int))]
 		ntop_list = [len(testset), len(panelgenes)] + list(np.geomspace(1, 1024, num=11, dtype=int))
 
 		for x in range(len(ntop_list)):
@@ -206,11 +205,6 @@ def computePerformance(panelgenes, seeds_list, candidates_list, nodes, adjacency
 
 	cols = ['Type','ntop', '#tp', 'f1', 'recall', 'precision', 'matthews_corrcoef', 'baccuracy']
 	dfstats = pd.DataFrame(lst, columns=cols)
-	#print(dfstats.columns)
-
-	#print(dfstats['Type'].dtype)
-	#print(dfstats)
-
 
 	cols = ['Type','ntop', 'iteration', '#tp', 'TPgenes']
 	dfdectG = pd.DataFrame(dectG, columns=cols)
@@ -452,11 +446,10 @@ def main(args):
 			statsDF['percgenesinnetwork'] = 100 - (len(diseasegenesOutInt)/len(panelgenes)*100)
 
 
-			#totalstats = totalstats.append(statsDF)
-			totalstats = pd.concat([totalstats, statsDF])#, ignore_index=True)
-			#totalgenes = totalgenes.append(genesDF)
-			totalgenes = pd.concat([totalgenes, genesDF], ignore_index=True)
+			totalstats = totalstats.append(statsDF)
+			totalgenes = totalgenes.append(genesDF)
 
+	
 
 			#### Random walk results
 
@@ -480,10 +473,7 @@ def main(args):
 
 	performance_threshold = args.output+"/networkEvaluation.txt"
 	totalstats = totalstats.reset_index().round(decimals=3)
-
-	#print(totalstats.columns)
 	totalstats = totalstats[['disease','diseasegroup','#diseasegenes','network','knowledgecategory', 'percgenesinnetwork',  'trainingtype', 'auprg', 'auc', 'Type', 'ntop','#tp',	'recall',	'precision', 'f1',	'matthews_corrcoef', 'baccuracy']]
-	#totalstats = totalstats[['disease','diseasegroup','#diseasegenes','network','knowledgecategory', 'percgenesinnetwork',  'trainingtype', 'auprg', 'auc','Type','ntop','#tp','recall',	'precision', 'f1',	'matthews_corrcoef', 'baccuracy']]
 	totalstats.to_csv(performance_threshold, sep = "\t", index=False)
 	
 	detected_genes = args.output+"/detectedgenesEvaluation.txt"
